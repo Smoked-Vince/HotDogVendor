@@ -1,1 +1,13 @@
+#linear search
+def linear_search(items, targer):
+  index = 0
+  found = False
 
+  while found == False and index < len(items):
+    if target == items[index]:
+      found = True
+      print("found", index)
+    index = index+1
+    if found == False:
+      print("not found")
+linear_search(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "Mar")
