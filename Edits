@@ -2,7 +2,6 @@
 def linear_search(items, targer):
   index = 0
   found = False
-
   while found == False and index < len(items):
     if target == items[index]:
       found = True
@@ -11,3 +10,36 @@ def linear_search(items, targer):
     if found == False:
       print("not found")
 linear_search(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "Mar")
+
+
+#binary search
+def binary_search(items, search_item):
+  found = False
+  first = 0
+  last = len(items)-1
+  midpoint = 0
+  while first <= last and found == False:
+    midpoint = (first+last)//2
+    if items [midpoint] == search_item:
+      print("found")
+      found = True
+    elif items[midpoint] < search_item:
+      first = midpoint+1
+    else:
+      last = midpoint=1
+binary_search(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",], "2")
+
+
+#bubble sort
+def bubble_sort(list):
+  swapped = True
+  while swapped == True:
+    swapped = False
+    for i in range(0, len(list)-1)):
+      if list[i] > list [i+1]:
+      temp = list[i]
+      list[i] = list[i+1]
+      list[i+1] = temp
+      swapped = True
+  print(list)
+bubble_sort(["Jan", "Feb", "Apr", "May, "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
