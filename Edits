@@ -43,3 +43,19 @@ def bubble_sort(list):
       swapped = True
   print(list)
 bubble_sort(["Jan", "Feb", "Apr", "May, "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
+
+#quick sort
+def quick_sort(list):
+  if len(list)<=1:
+    return list
+  pivot - list[0]
+  left = []
+  right = []
+  for i in range (1, (len(list))):
+    if list[i] <= pivot:
+      left.append(list[i])
+  else:
+      right.append(list[i])
+  return quick_sort(left) + [pivot] + quick_sort(right)
+print(quick_sort([["Jan", "Feb", "Apr", "May, "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
+
