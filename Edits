@@ -114,4 +114,38 @@ def linear_search(data, target_name):
 
     return None
 
+#binary search (requires sorted data)
+def binary_search(data, target_name):
+  low = 0
+  high =  len(data)-1
 
+  while low <= high:
+
+    mid = (low+high)//2
+    name = data[mid]["name"]
+
+    if name == target_name:
+      return data[mid]
+
+    elif name < target_name:
+      low = mid+1
+
+    else:
+        high = mid - 1
+  return None
+
+#Bubble sort
+def bubble_sort(data):
+
+  n = len(data)
+
+  for i in range(n)
+
+    for j in range(0, n- i - 1):
+
+      if data[j]["name"] > data[j + 1]["name"]:
+        data[j], data[j + 1] = data[j + 1], data[j]
+
+  return data
+
+#Quick Sort
