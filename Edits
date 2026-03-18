@@ -81,16 +81,16 @@ with open("HotDogs.txt", "w") as my_file:
     my_file.write("KK_745,Korner Kart,202319,80,150,20.5,3\n")
     my_file.write("KK_745,Korner Kart,202320,90,180,25.0,4\n")
 
+# ----------------------------
+# Functions
+# ----------------------------
+
 # Load vendor data from file
 def load_data(filename):
-
     vendors = []
-
     with open(filename, "r") as file:
-
         for line in file:
             parts = line.strip().split(",")
-
             vendor = {
                 "id": parts[0],
                 "name": parts[1],
@@ -100,9 +100,7 @@ def load_data(filename):
                 "onions": float(parts[5]),
                 "ketchup": float(parts[6])
             }
-
             vendors.append(vendor)
-
     return vendors
 
 #linear search
@@ -115,43 +113,27 @@ def linear_search(data, target_name):
     return None
 
 # Binary search (requires sorted data)
-# Binary search returns only one matching record.
-# Dataset contains multiple entries per vendor,
-# so linear search is more suitable when all matches are required.
 def binary_search(data, target_name):
-
-    low = 0
-    high = len(data) - 1
-
+    low, high = 0, len(data)-1
     while low <= high:
-
         mid = (low + high) // 2
         name = data[mid]["name"]
-
         if name == target_name:
             return data[mid]
-
         elif name < target_name:
             low = mid + 1
-
         else:
             high = mid - 1
-
     return None
 
 
 # Bubble sort
 def bubble_sort(data):
-
     n = len(data)
-
     for i in range(n):
-
-        for j in range(0, n - i - 1):
-
-            if data[j]["name"] > data[j + 1]["name"]:
-                data[j], data[j + 1] = data[j + 1], data[j]
-
+        for j in range(0, n-i-1):
+            if data[j]["name"] > data[j+1]["name"]:
+                data[j], data[j+1] = data[j+1], data[j]
     return data
 
 
