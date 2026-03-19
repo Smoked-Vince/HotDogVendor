@@ -59,6 +59,8 @@ def quick_sort(list):
   return quick_sort(left) + [pivot] + quick_sort(right)
 print(quick_sort([["Jan", "Feb", "Apr", "May, "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
 
+
+#Start of coursework
 import time
 
 
@@ -138,3 +140,51 @@ def bubble_sort(data):
 
 
 #Quick Sort
+def quick_sort(data):
+    if len(data) <= 1:
+        return data
+    pivot = data[0]
+    left = []
+    right = []
+    for item in data[1:]:
+      if item["name"] <= pivot["name"]:
+          left.append(item)
+        else:
+            right.append(item)
+  return quick_sort(left) + [pivot] + quick_sort(right)
+
+#measure time
+def measure_time(function, *args):
+    start = time.perf_counter()
+    result = function(*args)
+    end = time.perf_counter()
+    print(function.__name__, "execution time:", end - start)
+    return result
+
+# ----------------------------
+# Analysis Functions
+# ----------------------------
+
+
+#most productive vendors
+def most_productive_vendor(data):
+    totals = {}
+    for v in data:
+        name = v["name"]
+        totals[name] = totals.get(name, 0) + v["vegan"] + v["meat"]
+    return max(totals, key=totals.get)
+
+#vegan vs meat
+def vegan_vs_meat(data):
+    vegan_total = sum(v["vegan"] for v in data)
+    meat_total = sum(v["meat"] for v in data)
+    return vegan_total, meat_total
+
+#least ketchup used
+def least_ketchup(data):
+    return min(data, key=lambda x: x["ketchup"])
+
+#save results
+def save_results(filename, results):
+    with open(filename, "w") as file:
+        file.write(results)
