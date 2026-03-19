@@ -61,6 +61,8 @@ print(quick_sort([["Jan", "Feb", "Apr", "May, "Jun", "Jul", "Aug", "Sep", "Oct",
 
 
 #Start of coursework
+
+#will be used to observe execution time
 import time
 
 
@@ -174,7 +176,7 @@ def most_productive_vendor(data):
         totals[name] = totals.get(name, 0) + v["vegan"] + v["meat"]
     return max(totals, key=totals.get)
 
-#vegan vs meat
+#vegan vs meat hotdogs sold
 def vegan_vs_meat(data):
     vegan_total = sum(v["vegan"] for v in data)
     meat_total = sum(v["meat"] for v in data)
