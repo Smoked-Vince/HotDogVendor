@@ -152,15 +152,17 @@ vendors = load_data("HotDogs.txt") #Load data from file
 sorted_vendors = measure_time(quick_sort, vendors.copy())
 
 #perform binary search (requires sorted list)
-result = binary_search(sorted_vendors, "Dolly Dogs")
+search_name = input("Enter vendor name to search: ")
+result = binary_search(sorted_vendors, search_name)
 print("\nBinary Search Result")
 print("Vendor found:" if result else "Vendor not found", result)
 
 #compare linear vs binary search performance
 print("\nSearch Efficiency Comparison")
-measure_time(linear_search, vendors, "Dolly Dogs")
-measure_time(linear_search, sorted_vendors, "Dolly Dogs")
-measure_time(binary_search, sorted_vendors, "Dolly Dogs")
+measure_time(linear_search, vendors, search_name)
+measure_time(linear_search, sorted_vendors, search_name)
+measure_time(binary_search, sorted_vendors, search_name)
+
 
 #Run analysis functions
 best_vendor = most_productive_vendor(vendors)
