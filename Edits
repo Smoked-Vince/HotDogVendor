@@ -1,65 +1,3 @@
-#linear search
-def linear_search(items, targer):
-  index = 0
-  found = False
-  while found == False and index < len(items):
-    if target == items[index]:
-      found = True
-      print("found", index)
-    index = index+1
-    if found == False:
-      print("not found")
-linear_search(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "Mar")
-
-
-#binary search
-def binary_search(items, search_item):
-  found = False
-  first = 0
-  last = len(items)-1
-  midpoint = 0
-  while first <= last and found == False:
-    midpoint = (first+last)//2
-    if items [midpoint] == search_item:
-      print("found")
-      found = True
-    elif items[midpoint] < search_item:
-      first = midpoint+1
-    else:
-      last = midpoint=1
-binary_search(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",], "2")
-
-
-#bubble sort
-def bubble_sort(list):
-  swapped = True
-  while swapped == True:
-    swapped = False
-    for i in range(0, len(list)-1)):
-      if list[i] > list [i+1]:
-      temp = list[i]
-      list[i] = list[i+1]
-      list[i+1] = temp
-      swapped = True
-  print(list)
-bubble_sort(["Jan", "Feb", "Apr", "May, "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
-
-#quick sort
-def quick_sort(list):
-  if len(list)<=1:
-    return list
-  pivot - list[0]
-  left = []
-  right = []
-  for i in range (1, (len(list))):
-    if list[i] <= pivot:
-      left.append(list[i])
-  else:
-      right.append(list[i])
-  return quick_sort(left) + [pivot] + quick_sort(right)
-print(quick_sort([["Jan", "Feb", "Apr", "May, "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
-
-
 #Start of coursework
 
 #will be used to observe execution time
@@ -93,22 +31,26 @@ with open("HotDogs.txt", "w") as my_file:
 
 # Load vendor data from file
 def load_data(filename):
-    # Reads the file and converts each line into a dictionary
     vendors = []
-    with open(filename, "r") as file:
-        for line in file:
-            parts = line.strip().split(",")
-            # Create a dictionary for each vendor record
-            vendor = {
-                "id": parts[0],
-                "name": parts[1],
-                "year_week": parts[2],
-                "vegan": int(parts[3]),      # Convert to integer
-                "meat": int(parts[4]),       # Convert to integer
-                "onions": float(parts[5]),   # Convert to float
-                "ketchup": float(parts[6])   # Convert to float
-            }
-            vendors.append(vendor)
+    try:
+        with open(filename, "r") as file:
+            for line in file:
+                parts = line.strip().split(",")
+                vendor = {
+                    "id": parts[0],
+                    "name": parts[1],
+                    "year_week": parts[2],
+                    "vegan": int(parts[3]),
+                    "meat": int(parts[4]),
+                    "onions": float(parts[5]),
+                    "ketchup": float(parts[6])
+                }
+                vendors.append(vendor)
+    except FileNotFoundError:
+        print("Error: File not found.")
+    except ValueError:
+        print("Error: Data format issue in file.")
+
     return vendors
 
 #linear search
@@ -122,18 +64,21 @@ def linear_search(data, target_name):
 
 # Binary search (requires sorted data)
 def binary_search(data, target_name):
-    low, high = 0, len(data)-1
-    while low <= high:
-        mid = (low + high) // 2
-        name = data[mid]["name"]
-        if name == target_name:
-            return data[mid]
-        elif name < target_name:
-            low = mid + 1
-        else:
-            high = mid - 1
-    return None
-
+    try:
+        low, high = 0, len(data)-1
+        while low <= high:
+            mid = (low + high) // 2
+            name = data[mid]["name"]
+            if name == target_name:
+                return data[mid]
+            elif name < target_name:
+                low = mid + 1
+            else:
+                high = mid - 1
+        return None
+    except (IndexError, KeyError, TypeError):
+        print("Error: Try again")
+        return None
 
 # Bubble sort
 def bubble_sort(data):
@@ -149,23 +94,23 @@ def bubble_sort(data):
 def quick_sort(data):
     if len(data) <= 1:
         return data
-    pivot = data[0]
-    left = []
-    right = []
-    for item in data[1:]:
-      if item["name"] <= pivot["name"]:
-          left.append(item)
-        else:
-            right.append(item)
-  return quick_sort(left) + [pivot] + quick_sort(right)
+
+    pivot = data[0]  # Choose first element as pivot
+    # Partition data into two lists
+    left = [item for item in data[1:] if item["name"] <= pivot["name"]]
+    right = [item for item in data[1:] if item["name"] > pivot["name"]]
+    # Recursively sort and combine
+    return quick_sort(left) + [pivot] + quick_sort(right)
 
 #measure time
 def measure_time(function, *args):
+    # Measures execution time of a function
     start = time.perf_counter()
     result = function(*args)
     end = time.perf_counter()
     print(function.__name__, "execution time:", end - start)
     return result
+
 
 # ----------------------------
 # Analysis Functions
@@ -174,6 +119,7 @@ def measure_time(function, *args):
 
 #most productive vendors
 def most_productive_vendor(data):
+    # Finds vendor with highest total sales (vegan + meat)  
     totals = {}
     for v in data:
         name = v["name"]
@@ -200,3 +146,38 @@ def save_results(filename, results):
 #Main Code
 # ----------------------------
 
+vendors = load_data("HotDogs.txt") #Load data from file
+
+#sort data using quick sort and measure time
+sorted_vendors = measure_time(quick_sort, vendors.copy())
+
+#perform binary search (requires sorted list)
+result = binary_search(sorted_vendors, "Dolly Dogs")
+print("\nBinary Search Result")
+print("Vendor found:" if result else "Vendor not found", result)
+
+#compare linear vs binary search performance
+print("\nSearch Efficiency Comparison")
+measure_time(linear_search, vendors, "Dolly Dogs")
+measure_time(linear_search, sorted_vendors, "Dolly Dogs")
+measure_time(binary_search, sorted_vendors, "Dolly Dogs")
+
+#Run analysis functions
+best_vendor = most_productive_vendor(vendors)
+vegan, meat = vegan_vs_meat(vendors)
+least = least_ketchup(vendors)
+
+print("\nAnalysis Results")
+print("Most productive vendor:", best_vendor)
+print("Total vegan hotdogs:", vegan)
+print("Total meat hotdogs:", meat)
+print("Vendor using least ketchup:", least["name"])
+
+#save reuslts to file
+results = f"""
+most priductive vendor: {best_vendor}
+Total vegan hotdogs: {vegan}
+Total meat hotdogs: {meat}
+Vendor using least ketchup: {least['name']
+}"""
+save_results("analysis.txt", results)
