@@ -67,7 +67,9 @@ import time
 
 
 # Create the data file
+# This writes sample vendor data to a text file
 with open("HotDogs.txt", "w") as my_file:
+    # Format: ID, Name, YearWeek, VeganSold, MeatSold, OnionsUsed, KetchupUsed
     my_file.write("DD_056,Dolly Dogs,202313,40,140,10.5,1\n")
     my_file.write("DD_056,Dolly Dogs,202314,40,170,15.0,2\n")
     my_file.write("DD_056,Dolly Dogs,202315,60,100,14.5,1\n")
@@ -91,30 +93,32 @@ with open("HotDogs.txt", "w") as my_file:
 
 # Load vendor data from file
 def load_data(filename):
+    # Reads the file and converts each line into a dictionary
     vendors = []
     with open(filename, "r") as file:
         for line in file:
             parts = line.strip().split(",")
+            # Create a dictionary for each vendor record
             vendor = {
                 "id": parts[0],
                 "name": parts[1],
                 "year_week": parts[2],
-                "vegan": int(parts[3]),
-                "meat": int(parts[4]),
-                "onions": float(parts[5]),
-                "ketchup": float(parts[6])
+                "vegan": int(parts[3]),      # Convert to integer
+                "meat": int(parts[4]),       # Convert to integer
+                "onions": float(parts[5]),   # Convert to float
+                "ketchup": float(parts[6])   # Convert to float
             }
             vendors.append(vendor)
     return vendors
 
 #linear search
 def linear_search(data, target_name):
-
+    # Searches each item one by one
     for vendor in data:
         if vendor["name"] == target_name:
-            return vendor
+          return vendor  # Return first match found
+    return None  # If not found
 
-    return None
 
 # Binary search (requires sorted data)
 def binary_search(data, target_name):
@@ -190,3 +194,9 @@ def least_ketchup(data):
 def save_results(filename, results):
     with open(filename, "w") as file:
         file.write(results)
+
+
+# ----------------------------
+#Main Code
+# ----------------------------
+
