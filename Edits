@@ -53,13 +53,20 @@ def load_data(filename):
 
     return vendors
 
-#linear search
-def linear_search(data, target_name):
-    # Searches each item one by one
+#linear search for unsorted data
+def linear_search_unsorted(data, target_name):
     for vendor in data:
         if vendor["name"] == target_name:
-          return vendor  # Return first match found
-    return None  # If not found
+            return vendor
+    return None
+
+#linear search for sorted data
+def linear_search_sorted(data, target_name):
+    for vendor in data:
+        if vendor["name"] == target_name:
+            return vendor
+    return None
+
 
 
 # Binary search (requires sorted data)
@@ -96,7 +103,7 @@ def quick_sort(data):
         return data
 
     pivot = data[0]  # Choose first element as pivot
-    # Partition data into two lists
+    # Splits data into two lists
     left = [item for item in data[1:] if item["name"] <= pivot["name"]]
     right = [item for item in data[1:] if item["name"] > pivot["name"]]
     # Recursively sort and combine
@@ -146,23 +153,22 @@ def save_results(filename, results):
 #Main Code
 # ----------------------------
 
-vendors = load_data("HotDogs.txt") #Load data from file
+vendors = load_data("HotDogs.txt")
 
-#sort data using quick sort and measure time
+# Sort first
 sorted_vendors = measure_time(quick_sort, vendors.copy())
 
-#perform binary search (requires sorted list)
+# Search input
 search_name = input("Enter vendor name to search: ")
+
+# Binary search result
 result = binary_search(sorted_vendors, search_name)
-print("\nBinary Search Result")
-print("Vendor found:" if result else "Vendor not found", result)
 
-#compare linear vs binary search performance
+# Efficency test
 print("\nSearch Efficiency Comparison")
-measure_time(linear_search, vendors, search_name)
-measure_time(linear_search, sorted_vendors, search_name)
+measure_time(linear_search_unsorted, vendors, search_name)
+measure_time(linear_search_sorted, sorted_vendors, search_name)
 measure_time(binary_search, sorted_vendors, search_name)
-
 
 #Run analysis functions
 best_vendor = most_productive_vendor(vendors)
@@ -177,9 +183,9 @@ print("Vendor using least ketchup:", least["name"])
 
 #save reuslts to file
 results = f"""
-most priductive vendor: {best_vendor}
+Most productive vendor: {best_vendor}
 Total vegan hotdogs: {vegan}
 Total meat hotdogs: {meat}
-Vendor using least ketchup: {least['name']
-}"""
+Vendor using least ketchup: {least['name']}
+"""
 save_results("analysis.txt", results)
