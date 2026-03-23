@@ -68,14 +68,14 @@ def linear_search_sorted(data, target_name):
     return None
 
 
-
 # Binary search (requires sorted data)
 def binary_search(data, target_name):
     try:
-        low, high = 0, len(data)-1
+        target_name = target_name.lower()  # make input lowercase
+        low, high = 0, len(data) - 1
         while low <= high:
             mid = (low + high) // 2
-            name = data[mid]["name"]
+            name = data[mid]["name"].lower()  # make vendor name lowercase
             if name == target_name:
                 return data[mid]
             elif name < target_name:
