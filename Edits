@@ -124,19 +124,19 @@ def measure_time(function, *args):
 # ----------------------------
 
 
-#most productive vendors
+# most productive vendors
 def most_productive_vendor(data):
     # Finds vendor with highest total sales (vegan + meat)  
     totals = {}
-    for v in data:
-        name = v["name"]
-        totals[name] = totals.get(name, 0) + v["vegan"] + v["meat"]
+    for vendor in data:
+        name = vendor["name"]
+        totals[name] = totals.get(name, 0) + vendor["vegan"] + vendor["meat"]
     return max(totals, key=totals.get)
 
-#vegan vs meat hotdogs sold
+# vegan vs meat hotdogs sold
 def vegan_vs_meat(data):
-    vegan_total = sum(v["vegan"] for v in data)
-    meat_total = sum(v["meat"] for v in data)
+    vegan_total = sum(vendor["vegan"] for vendor in data)
+    meat_total = sum(vendor["meat"] for vendor in data)
     return vegan_total, meat_total
 
 #least ketchup used
