@@ -36,6 +36,9 @@ def load_data(filename):
         with open(filename, "r") as file:
             for line in file:
                 parts = line.strip().split(",")
+                # Data validation
+                if len(parts) != 7:
+                    continue
                 vendor = {
                     "id": parts[0],
                     "name": parts[1],
@@ -62,11 +65,14 @@ def linear_search_unsorted(data, target_name):
 
 #linear search for sorted data
 def linear_search_sorted(data, target_name):
+    target_name = target_name.lower()
     for vendor in data:
-        if vendor["name"] == target_name:
+        name = vendor["name"].lower()
+        if name == target_name:
             return vendor
+        elif name > target_name:
+            return None
     return None
-
 
 # Binary search (requires sorted data)
 def binary_search(data, target_name):
@@ -148,7 +154,13 @@ def save_results(filename, results):
     with open(filename, "w") as file:
         file.write(results)
 
-
+#new ketchup value
+def update_vendor_ketchup(data, name, new_value):
+    for vendor in data:
+        if vendor["name"].lower() == name.lower():
+            vendor["ketchup"] = new_value
+            return True
+    return False
 # ----------------------------
 #Main Code
 # ----------------------------
@@ -156,10 +168,16 @@ def save_results(filename, results):
 vendors = load_data("HotDogs.txt")
 
 # Sort first
+print("\nSorting Efficiency Comparison")
+measure_time(bubble_sort, vendors.copy())
 sorted_vendors = measure_time(quick_sort, vendors.copy())
 
 # Search input
-search_name = input("Enter vendor name to search: ")
+while True:
+    search_name = input("Enter vendor name to search: ").strip()
+    if search_name:
+        break
+    print("Invalid input. Try again.")
 
 # Binary search result
 result = binary_search(sorted_vendors, search_name)
@@ -169,6 +187,21 @@ print("\nSearch Efficiency Comparison")
 measure_time(linear_search_unsorted, vendors, search_name)
 measure_time(linear_search_sorted, sorted_vendors, search_name)
 measure_time(binary_search, sorted_vendors, search_name)
+
+#new ketchup value
+choice = input("\nDo you want to update ketchup value? (yes/no): ").lower()
+
+if choice == "yes":
+    name = input("Enter vendor name: ")
+    try:
+        new_ketchup = float(input("Enter new ketchup value: "))
+        if update_vendor_ketchup(vendors, name, new_ketchup):
+            print("Update successful.")
+        else:
+            print("Vendor not found.")
+    except ValueError:
+        print("Invalid number entered.")
+
 
 #Run analysis functions
 best_vendor = most_productive_vendor(vendors)
