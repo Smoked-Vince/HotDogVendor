@@ -154,13 +154,6 @@ def save_results(filename, results):
     with open(filename, "w") as file:
         file.write(results)
 
-#new ketchup value
-def update_vendor_ketchup(data, name, new_value):
-    for vendor in data:
-        if vendor["name"].lower() == name.lower():
-            vendor["ketchup"] = new_value
-            return True
-    return False
 # ----------------------------
 #Main Code
 # ----------------------------
@@ -187,20 +180,6 @@ print("\nSearch Efficiency Comparison")
 measure_time(linear_search_unsorted, vendors, search_name)
 measure_time(linear_search_sorted, sorted_vendors, search_name)
 measure_time(binary_search, sorted_vendors, search_name)
-
-#new ketchup value
-choice = input("\nDo you want to update ketchup value? (yes/no): ").lower()
-
-if choice == "yes":
-    name = input("Enter vendor name: ")
-    try:
-        new_ketchup = float(input("Enter new ketchup value: "))
-        if update_vendor_ketchup(vendors, name, new_ketchup):
-            print("Update successful.")
-        else:
-            print("Vendor not found.")
-    except ValueError:
-        print("Invalid number entered.")
 
 
 #Run analysis functions
