@@ -95,8 +95,12 @@ def binary_search(data, target_name):
         return None
 
 # Bubble sort
-# presence check and type check
+# presence check
 def bubble_sort(data):
+    # Presence Check: Ensure 'data' was actually passed (not None)
+    if data == None:
+        raise ValueError("The input 'data' must be provided.")
+
     # Type Check: Ensure 'data' is a list
     if type(data) != list:
         raise TypeError("The input 'data' must be a list.")
@@ -104,30 +108,22 @@ def bubble_sort(data):
     # Handle empty or single-element lists early
     n = len(data)
     if n <= 1:
-        return data  # Return if list is too small to sort
+        return data
 
     for i in range(n):
         for j in range(0, n - i - 1):
-            # Ensure elements are dictionaries and contain the 'name' key
-            try:
-                # Type Check: Ensure the items in the list are dictionaries
-                if type(data[j]) != dict or type(data[j+1]) != dict:
-                    raise ValueError("List items must be dictionaries.")
-                
-                # Type Check: Ensure the vendor names are strings
-                if type(data[j]["name"]) != str or type(data[j+1]["name"]) != str:
-                    raise TypeError("Vendor names must be strings for sorting.")
-                
-                # Comparison logic
-                if data[j]["name"] > data[j+1]["name"]:
-                    # Swap items if they are out of order
-                    data[j], data[j+1] = data[j+1], data[j]
-                    
-            except KeyError as e:
-                # Presence Check: Ensures the 'name' key exists
-                raise KeyError(f"Missing key: {e} in one of the list items.")
-    return data
+            # Presence Check: Ensure the keys 'name' exist in both items
+            if "name" not in data[j] or "name" not in data[j+1]:
+                raise KeyError("The key 'name' is missing from one of the items.")
 
+            # Type Check: Ensure the vendor names are strings
+            if type(data[j]["name"]) != str or type(data[j+1]["name"]) != str:
+                raise TypeError("Vendor names must be strings for sorting.")
+            
+            # Comparison logic
+            if data[j]["name"] > data[j+1]["name"]:
+                # Swap items if they are out of order
+                data[j], data[j+1] = data[j+1], data[j]
 
 #Quick Sort
 def quick_sort(data):
