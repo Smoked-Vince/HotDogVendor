@@ -94,6 +94,7 @@ def binary_search(data, target_name):
         return None
 
 # Bubble sort
+#presence check
 def bubble_sort(data):
     # Ensure 'data' is actually a list
     if not isinstance(data, list):
