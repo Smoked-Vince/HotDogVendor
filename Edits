@@ -95,12 +95,28 @@ def binary_search(data, target_name):
 
 # Bubble sort
 def bubble_sort(data):
+    # Ensure 'data' is actually a list
+    if not isinstance(data, list):
+        raise TypeError("The input 'data' must be a list.")
+
+    # Handle empty or single-element lists early
     n = len(data)
+    if n <= 1:
+        return data
+
     for i in range(n):
-        for j in range(0, n-i-1):
-            if data[j]["name"] > data[j+1]["name"]:
-                data[j], data[j+1] = data[j+1], data[j]
+        for j in range(0, n - i - 1):
+            # Ensure elements are dictionaries and contain the 'name' key
+            try:
+                if not isinstance(data[j], dict) or not isinstance(data[j+1], dict):
+                    raise ValueError(f"Items at index {j} and {j+1} must be dictionaries.")
+                
+                if data[j]["name"] > data[j+1]["name"]:
+                    data[j], data[j+1] = data[j+1], data[j]
+            except KeyError as e:
+                raise KeyError(f"Missing key: {e} in one of the list items.")
     return data
+
 
 
 #Quick Sort
