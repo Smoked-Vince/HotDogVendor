@@ -61,7 +61,7 @@ def load_data(filename):
 def linear_search_unsorted(data, target_name):
     for vendor in data:  # Iterate through every item in list
         if vendor["name"] == target_name:
-            return vendor  Return immediately if match is found
+            return vendor  #Return immediately if match is found
     return None
 
 #linear search for sorted data
