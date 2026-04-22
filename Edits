@@ -56,9 +56,9 @@ with open("HotDogs.txt", "w") as my_file:
     
     
 
-# ----------------------------
+# ============================
 # Functions
-# ----------------------------
+# ============================
 
 # Load vendor data from file
 def load_data(filename):
@@ -88,6 +88,10 @@ def load_data(filename):
 
     return vendors
 
+#-----------------------------
+# Searching Functions
+# ----------------------------
+
 #linear search for unsorted data
 def linear_search_unsorted(data, target_name):
     for vendor in data:  # Iterate through every item in list
@@ -105,6 +109,7 @@ def linear_search_sorted(data, target_name):
         elif name > target_name:
             return None  # Exit early if we've passed the alphabetical spot
     return None
+
 
 # Binary search (requires sorted data)
 def binary_search(data, target_name):
@@ -124,6 +129,10 @@ def binary_search(data, target_name):
     except (IndexError, KeyError, TypeError):
         print("Error: Try again")
         return None
+
+#-----------------------------
+# Sorting Functions
+# ----------------------------
 
 # Bubble sort
 # presence check
@@ -179,9 +188,9 @@ def measure_time(function, *args):
     return result
 
 
-# ----------------------------
+# ============================
 # Analysis Functions
-# ----------------------------
+# ============================
 
 
 # most productive vendors
@@ -210,9 +219,9 @@ def save_results(filename, results):
     with open(filename, "w") as file:
         file.write(results)  # Write summary string to file
 
-# ----------------------------
+# ============================
 #Main Code
-# ----------------------------
+# ============================
 
 vendors = load_data("HotDogs.txt")
 
