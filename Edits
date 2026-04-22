@@ -221,12 +221,20 @@ print("\nSorting Efficiency Comparison")
 measure_time(bubble_sort, vendors.copy())  # Test bubble sort
 sorted_vendors = measure_time(quick_sort, vendors.copy())  # Test quick sort
 
-# Search input
+#Search input
+valid_names = sorted(set(v["name"] for v in vendors))
 while True:
     search_name = input("Enter vendor name to search: ").strip()
-    if search_name:
-        break  # Exit loop if input is not empty
-    print("Invalid input. Try again.")
+    if not search_name:
+        print("Invalid input. Try again.")
+        continue
+    result = binary_search(sorted_vendors, search_name)
+    if result:
+        print("\nVendor found:", result["name"])
+        break
+    else:
+        print("\nVendor NOT found.")
+        print("Available vendors:", ", ".join(valid_names))
 
 # Binary search result
 result = binary_search(sorted_vendors, search_name)
