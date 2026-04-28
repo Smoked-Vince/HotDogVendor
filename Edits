@@ -37,10 +37,10 @@ with open("HotDogs.txt", "w") as my_file:
     my_file.write("EE_867,Echo Eats,202320,90,100,26.5,3\n")
     #Pocket Panda
     my_file.write("PP_306,Pocket Panda,202313,100,180,10.0,1\n")
-    my_file.write("PP_306,Pocket Panda,202314,75,130,10.0,4\n")
+    my_file.write("PP_306,Pocket Panda,202314,70,130,10.0,4\n")
     my_file.write("PP_306,Pocket Panda,202315,80,150,16.0,1\n")
     my_file.write("PP_306,Pocket Panda,202316,130,100,19.5,2\n")
-    my_file.write("PP_306,Pocket Panda,202317,55,170,25.5,2\n")
+    my_file.write("PP_306,Pocket Panda,202317,50,170,25.5,2\n")
     my_file.write("PP_306,Pocket Panda,202318,90,110,15.0,3\n")
     my_file.write("PP_306,Pocket Panda,202319,110,130,10.5,4\n")
     my_file.write("PP_306,Pocket Panda,202320,30,160,26.5,4\n")
