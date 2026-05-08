@@ -244,6 +244,9 @@ while True:
     else:
         print("\nVendor NOT found.")
         print("Available vendors:", ", ".join(valid_names))
+        measure_time(linear_search_unsorted, vendors, search_name)  # Test on unsorted data, through linear search
+        measure_time(linear_search_sorted, sorted_vendors, search_name)  # Test on sorted data, through linear search
+        measure_time(binary_search, sorted_vendors, search_name)  # Test on sorted data, through binary search
 
 # Binary search result
 result = binary_search(sorted_vendors, search_name)
