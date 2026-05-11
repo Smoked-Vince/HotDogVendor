@@ -214,6 +214,78 @@ def least_ketchup(data):
     # Find minimum using ketchup value as the key
     return min(data, key=lambda x: x["ketchup"])
 
+# ============================
+# Detailed Analysis Testing
+# ============================
+
+print("\n--- Testing Analysis Functions ---")
+
+
+# Test 1
+print("\nTest 1: Most Productive Vendor")
+
+print("Expected: Vendor with highest combined sales")
+
+print("Actual:", most_productive_vendor(vendors))
+
+
+# Test 2
+print("\nTest 2: Vegan vs Meat Totals")
+
+vegan_total, meat_total = vegan_vs_meat(vendors)
+
+print("Expected: Total vegan and meat hotdog sales")
+
+print("Actual Vegan Total:", vegan_total)
+
+print("Actual Meat Total:", meat_total)
+
+
+# Test 3
+print("\nTest 3: Least Ketchup Usage")
+
+least_vendor = least_ketchup(vendors)
+
+print("Expected: Vendor entry with smallest ketchup value")
+
+print("Actual Vendor:", least_vendor["name"])
+
+print("Ketchup Used:", least_vendor["ketchup"])
+
+
+# Test 4
+print("\nTest 4: Empty List Test")
+
+empty_data = []
+
+try:
+    print(most_productive_vendor(empty_data))
+
+except ValueError:
+    print("Handled empty list correctly.")
+
+
+# Test 5
+print("\nTest 5: Single Vendor Test")
+
+single_vendor = [
+    {
+        "id": "TEST_001",
+        "name": "Test Vendor",
+        "year_week": "202320",
+        "vegan": 10,
+        "meat": 20,
+        "onions": 2.0,
+        "ketchup": 1.0
+    }
+]
+
+print("Most productive:", most_productive_vendor(single_vendor))
+
+print("Vegan vs Meat:", vegan_vs_meat(single_vendor))
+
+print("Least ketchup:", least_ketchup(single_vendor)["name"])
+
 #save results
 def save_results(filename, results):
     with open(filename, "w") as file:
@@ -277,4 +349,16 @@ Total meat hotdogs: {meat}
 Vendor using least ketchup: {least['name']}
 """
 save_results("analysis.txt", results)  # Export findings
+
+# ============================
+# Evidence of Persistent Storage
+# ============================
+
+print("\nContents of saved analysis file:")
+
+with open("analysis.txt", "r") as file:
+
+    print(file.read())
+
+print("Persistent storage confirmed.")
 
