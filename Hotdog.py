@@ -1,14 +1,21 @@
-#Start of coursework
+# ============================
+# Start of Coursework
+# ============================
 
-#will be used to observe execution time
+# Used to observe execution time
 import time
 
 
+# ============================
 # Create the data file
-# This writes sample vendor data to a text file
+# ============================
+
 with open("HotDogs.txt", "w") as my_file:
-    # Format: ID, Name, YearWeek, VeganSold, MeatSold, OnionsUsed, KetchupUsed
-    #Dolly Dogs
+
+    # Format:
+    # ID, Name, YearWeek, VeganSold, MeatSold, OnionsUsed, KetchupUsed
+
+    # Dolly Dogs
     my_file.write("DD_056,Dolly Dogs,202313,40,140,10.5,1\n")
     my_file.write("DD_056,Dolly Dogs,202314,40,170,15.0,2\n")
     my_file.write("DD_056,Dolly Dogs,202315,60,100,14.5,1\n")
@@ -17,7 +24,8 @@ with open("HotDogs.txt", "w") as my_file:
     my_file.write("DD_056,Dolly Dogs,202318,70,130,20.0,1\n")
     my_file.write("DD_056,Dolly Dogs,202319,50,180,15.5,4\n")
     my_file.write("DD_056,Dolly Dogs,202320,90,130,10.0,2\n")
-    #Korner Kart
+
+    # Korner Kart
     my_file.write("KK_745,Korner Kart,202313,60,130,10.5,2\n")
     my_file.write("KK_745,Korner Kart,202314,30,130,10.0,4\n")
     my_file.write("KK_745,Korner Kart,202315,80,150,25.5,2\n")
@@ -26,7 +34,8 @@ with open("HotDogs.txt", "w") as my_file:
     my_file.write("KK_745,Korner Kart,202318,90,170,25.0,1\n")
     my_file.write("KK_745,Korner Kart,202319,80,150,20.5,3\n")
     my_file.write("KK_745,Korner Kart,202320,90,180,25.0,4\n")
-    #Echo Eats
+
+    # Echo Eats
     my_file.write("EE_867,Echo Eats,202313,70,100,26.5,3\n")
     my_file.write("EE_867,Echo Eats,202314,80,140,19.5,5\n")
     my_file.write("EE_867,Echo Eats,202315,100,50,20.0,2\n")
@@ -35,7 +44,8 @@ with open("HotDogs.txt", "w") as my_file:
     my_file.write("EE_867,Echo Eats,202318,30,150,15.6,2\n")
     my_file.write("EE_867,Echo Eats,202319,55,100,14.5,3\n")
     my_file.write("EE_867,Echo Eats,202320,90,100,26.5,3\n")
-    #Pocket Panda
+
+    # Pocket Panda
     my_file.write("PP_306,Pocket Panda,202313,100,180,10.0,1\n")
     my_file.write("PP_306,Pocket Panda,202314,70,130,10.0,4\n")
     my_file.write("PP_306,Pocket Panda,202315,80,150,16.0,1\n")
@@ -44,7 +54,8 @@ with open("HotDogs.txt", "w") as my_file:
     my_file.write("PP_306,Pocket Panda,202318,90,110,15.0,3\n")
     my_file.write("PP_306,Pocket Panda,202319,110,130,10.5,4\n")
     my_file.write("PP_306,Pocket Panda,202320,30,160,26.5,4\n")
-    #Gideon Grub
+
+    # Gideon Grub
     my_file.write("GG_237,Gideon Grub,202313,90,50,15.0,1\n")
     my_file.write("GG_237,Gideon Grub,202314,60,130,13.6,2\n")
     my_file.write("GG_237,Gideon Grub,202315,80,50,15.5,1\n")
@@ -53,8 +64,7 @@ with open("HotDogs.txt", "w") as my_file:
     my_file.write("GG_237,Gideon Grub,202318,50,50,22.0,2\n")
     my_file.write("GG_237,Gideon Grub,202319,90,50,10.0,1\n")
     my_file.write("GG_237,Gideon Grub,202320,80,50,14.5,2\n")
-    
-    
+
 
 # ============================
 # Functions
@@ -62,128 +72,123 @@ with open("HotDogs.txt", "w") as my_file:
 
 # Load vendor data from file
 def load_data(filename):
-    vendors = [] # Initialize empty list for storage
+
+    vendors = []
+
     try:
         with open(filename, "r") as file:
+
             for line in file:
-                # Split formatted line into parts
+
                 parts = line.strip().split(",")
-                # Data validation
+
                 if len(parts) != 7:
-                    continue # Skip lines that don't meet column requirements
+                    continue
+
                 vendor = {
                     "id": parts[0],
-                    "name": parts[1],  # Assign second part as vendor name
+                    "name": parts[1],
                     "year_week": parts[2],
-                    "vegan": int(parts[3]),  # Convert string to integer
+                    "vegan": int(parts[3]),
                     "meat": int(parts[4]),
-                    "onions": float(parts[5]),  # Convert string to decimal
+                    "onions": float(parts[5]),
                     "ketchup": float(parts[6])
                 }
-                vendors.append(vendor)  # Add dictionary to the main list
+
+                vendors.append(vendor)
+
     except FileNotFoundError:
         print("Error: File not found.")
+
     except ValueError:
         print("Error: Data format issue in file.")
 
     return vendors
 
-#-----------------------------
-# Searching Functions
-# ----------------------------
 
-#linear search for unsorted data
+# ============================
+# Searching Functions
+# ============================
+
+# Linear search for unsorted data
 def linear_search_unsorted(data, target_name):
-    for vendor in data:  # Iterate through every item in list
+    for vendor in data:
         if vendor["name"] == target_name:
-            return vendor  #Return immediately if match is found
+            return vendor
     return None
 
-#linear search for sorted data
+
+# Linear search for sorted data
 def linear_search_sorted(data, target_name):
     target_name = target_name.lower()
-    for vendor in data: # Loop through sorted list sequentially
+    for vendor in data:
         name = vendor["name"].lower()
         if name == target_name:
-            return vendor  # Stop search if name matches
+            return vendor
         elif name > target_name:
-            return None  # Exit early if we've passed the alphabetical spot
+            return None
     return None
 
-
-# Binary search (requires sorted data)
+# Binary search
 def binary_search(data, target_name):
     try:
-        target_name = target_name.lower()  # make input lowercase
-        low, high = 0, len(data) - 1  # Set range boundaries
+        target_name = target_name.lower()
+        low = 0
+        high = len(data) - 1
         while low <= high:
-            mid = (low + high) // 2  # Find the middle index
-            name = data[mid]["name"].lower()  # make vendor name lowercase
+            mid = (low + high) // 2
+            name = data[mid]["name"].lower()
             if name == target_name:
-                return data[mid]  # Return match found at midpoint
+                return data[mid]
             elif name < target_name:
-                low = mid + 1  # Discard the lower half
+                low = mid + 1
             else:
-                high = mid - 1  # Discard the upper half
+                high = mid - 1
         return None
+
     except (IndexError, KeyError, TypeError):
         print("Error: Try again")
         return None
 
-#-----------------------------
+
+# ============================
 # Sorting Functions
-# ----------------------------
+# ============================
 
 # Bubble sort
-# presence check
 def bubble_sort(data):
-    # Presence Check: Ensure 'data' was actually passed (not None)
     if data == None:
         raise ValueError("The input 'data' must be provided.")
-
-    # Type Check: Ensure 'data' is a list
     if type(data) != list:
         raise TypeError("The input 'data' must be a list.")
-
-    # Handle empty or single-element lists early
     n = len(data)
     if n <= 1:
         return data
-
     for i in range(n):
         for j in range(0, n - i - 1):
-            # Presence Check: Ensure the keys 'name' exist in both items
-            if "name" not in data[j] or "name" not in data[j+1]:
-                raise KeyError("The key 'name' is missing from one of the items.")
+            if "name" not in data[j] or "name" not in data[j + 1]:
+                raise KeyError("The key 'name' is missing.")
+            if type(data[j]["name"]) != str:
+                raise TypeError("Vendor names must be strings.")
+            if data[j]["name"] > data[j + 1]["name"]:
+                data[j], data[j + 1] = data[j + 1], data[j]
 
-            # Type Check: Ensure the vendor names are strings
-            if type(data[j]["name"]) != str or type(data[j+1]["name"]) != str:
-                raise TypeError("Vendor names must be strings for sorting.")
-            
-            # Comparison logic
-            if data[j]["name"] > data[j+1]["name"]:
-                # Swap items if they are out of order
-                data[j], data[j+1] = data[j+1], data[j]
 
-#Quick Sort
+# Quick sort
 def quick_sort(data):
     if len(data) <= 1:
-        return data  # Base case: list is sorted
-
-    pivot = data[0] 
-    # Create sub-list of items smaller than pivot
+        return data
+    pivot = data[0]
     left = [item for item in data[1:] if item["name"] <= pivot["name"]]
-    # Create sub-list of items larger than pivot
     right = [item for item in data[1:] if item["name"] > pivot["name"]]
-    # Recursively sort and combine
     return quick_sort(left) + [pivot] + quick_sort(right)
 
-#measure time
+
+# Measure execution time
 def measure_time(function, *args):
-    # Measures execution time of a function
     start = time.perf_counter()
     result = function(*args)
-    end = time.perf_counter()  # Capture precise end time
+    end = time.perf_counter()
     print(function.__name__, "execution time:", end - start)
     return result
 
@@ -192,45 +197,52 @@ def measure_time(function, *args):
 # Analysis Functions
 # ============================
 
-
-# most productive vendors
+# Most productive vendor
 def most_productive_vendor(data):
-    # Finds vendor with highest total sales (vegan + meat)  
-    totals = {} # Map vendor names to total sales
+    totals = {}
     for vendor in data:
         name = vendor["name"]
-        # Add vegan and meat counts to the running total
         totals[name] = totals.get(name, 0) + vendor["vegan"] + vendor["meat"]
-    return max(totals, key=totals.get)  # Return name with the highest value
+    return max(totals, key=totals.get)
 
-# vegan vs meat hotdogs sold
+
+# Vegan vs meat totals
 def vegan_vs_meat(data):
-    vegan_total = sum(vendor["vegan"] for vendor in data) # counts vegan total
-    meat_total = sum(vendor["meat"] for vendor in data) # Sum meat counts
+    vegan_total = sum(vendor["vegan"] for vendor in data)
+    meat_total = sum(vendor["meat"] for vendor in data)
     return vegan_total, meat_total
 
-#least ketchup used
+# Least ketchup used
 def least_ketchup(data):
-    # Find minimum using ketchup value as the key
     return min(data, key=lambda x: x["ketchup"])
 
-#save results
+
+# Save results
 def save_results(filename, results):
     with open(filename, "w") as file:
-        file.write(results)  # Write summary string to file
+        file.write(results)
+
 
 # ============================
-#Main Code
+# Main Code
 # ============================
 
 vendors = load_data("HotDogs.txt")
 
-# Compare sorting algorithms
-print("\nSorting Efficiency Comparison")
-measure_time(bubble_sort, vendors.copy())  # Test bubble sort
-sorted_vendors = measure_time(quick_sort, vendors.copy())  # Test quick sort
 
-#Search input
+# ============================
+# Sorting Efficiency Comparison
+# ============================
+
+print("\nSorting Efficiency Comparison")
+measure_time(bubble_sort, vendors.copy())
+sorted_vendors = measure_time(quick_sort, vendors.copy())
+
+
+# ============================
+# Search Section
+# ============================
+
 valid_names = sorted(set(v["name"] for v in vendors))
 while True:
     search_name = input("Enter vendor name to search: ").strip()
@@ -242,39 +254,113 @@ while True:
         print("\nVendor found:", result["name"])
         break
     else:
+
         print("\nVendor NOT found.")
         print("Available vendors:", ", ".join(valid_names))
-        measure_time(linear_search_unsorted, vendors, search_name)  # Test on unsorted data, through linear search
-        measure_time(linear_search_sorted, sorted_vendors, search_name)  # Test on sorted data, through linear search
-        measure_time(binary_search, sorted_vendors, search_name)  # Test on sorted data, through binary search
+        measure_time(linear_search_unsorted, vendors, search_name)
+        measure_time(linear_search_sorted, sorted_vendors, search_name)
+        measure_time(binary_search, sorted_vendors, search_name)
 
-# Binary search result
-result = binary_search(sorted_vendors, search_name)
 
-# Efficency test
+# ============================
+# Search Efficiency Comparison
+# ============================
+
 print("\nSearch Efficiency Comparison")
-measure_time(linear_search_unsorted, vendors, search_name)  # Test on unsorted data, through linear search
-measure_time(linear_search_sorted, sorted_vendors, search_name)  # Test on sorted data, through linear search
-measure_time(binary_search, sorted_vendors, search_name)  # Test on sorted data, through binary search
+measure_time(linear_search_unsorted, vendors, search_name)
+measure_time(linear_search_sorted, sorted_vendors, search_name)
+measure_time(binary_search, sorted_vendors, search_name)
 
 
-#Run analysis functions
+# ============================
+# Run Analysis Functions
+# ============================
+
 best_vendor = most_productive_vendor(vendors)
 vegan, meat = vegan_vs_meat(vendors)
 least = least_ketchup(vendors)
-
 print("\nAnalysis Results")
-print("Most productive vendor:", best_vendor)  # Print most productive vendor
-print("Total vegan hotdogs:", vegan)  # Print total vegan sales
-print("Total meat hotdogs:", meat)  # Print total meat sales
-print("Vendor using least ketchup:", least["name"])  # Print vendor with least amount of ketchup used
+print("Most productive vendor:", best_vendor)
+print("Total vegan hotdogs:", vegan)
+print("Total meat hotdogs:", meat)
+print("Vendor using least ketchup:", least["name"])
 
-#save reuslts to file
+
+# ============================
+# Detailed Analysis Testing
+# ============================
+
+print("\n--- Testing Analysis Functions ---")
+
+# Test 1
+print("\nTest 1: Most Productive Vendor")
+print("Expected: Vendor with highest combined sales")
+print("Actual:", most_productive_vendor(vendors))
+
+
+# Test 2
+print("\nTest 2: Vegan vs Meat Totals")
+vegan_total, meat_total = vegan_vs_meat(vendors)
+print("Expected: Total vegan and meat hotdog sales")
+print("Actual Vegan Total:", vegan_total)
+print("Actual Meat Total:", meat_total)
+
+
+# Test 3
+print("\nTest 3: Least Ketchup Usage")
+least_vendor = least_ketchup(vendors)
+print("Expected: Vendor entry with smallest ketchup value")
+print("Actual Vendor:", least_vendor["name"])
+print("Ketchup Used:", least_vendor["ketchup"])
+
+
+# Test 4
+print("\nTest 4: Empty List Test")
+empty_data = []
+try:
+    print(most_productive_vendor(empty_data))
+except ValueError:
+    print("Handled empty list correctly.")
+
+
+# Test 5
+print("\nTest 5: Single Vendor Test")
+single_vendor = [
+    {
+        "id": "TEST_001",
+        "name": "Test Vendor",
+        "year_week": "202320",
+        "vegan": 10,
+        "meat": 20,
+        "onions": 2.0,
+        "ketchup": 1.0
+    }
+]
+
+print("Most productive:", most_productive_vendor(single_vendor))
+print("Vegan vs Meat:", vegan_vs_meat(single_vendor))
+print("Least ketchup:", least_ketchup(single_vendor)["name"])
+
+
+# ============================
+# Save Results to File
+# ============================
+
 results = f"""
 Most productive vendor: {best_vendor}
 Total vegan hotdogs: {vegan}
 Total meat hotdogs: {meat}
 Vendor using least ketchup: {least['name']}
 """
-save_results("analysis.txt", results)  # Export findings
 
+save_results("analysis.txt", results)
+
+
+# ============================
+# Evidence of Persistent Storage
+# ============================
+
+print("\nContents of saved analysis file:")
+with open("analysis.txt", "r") as file:
+    print(file.read())
+print("Persistent storage confirmed.")
